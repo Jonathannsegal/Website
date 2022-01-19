@@ -35,6 +35,7 @@ const NavBar = (props) => {
   return (
     <NavBarContainer {...props}>
       <Logo
+        align="center"
         w="100px"
         color={["black", "black", "primary.500", "primary.500"]}
       />
@@ -105,30 +106,13 @@ const MenuLinks = ({ isOpen }) => {
         justify={["center", "space-between", "flex-end", "flex-end"]}
         direction={["column", "row", "row", "row"]}
         pt={[4, 4, 0, 0]}
-      >
-        <MenuItem to="/how">How It works </MenuItem>
-      </Stack>
+      ></Stack>
     </Box>
   );
 };
 
 const NavBarContainer = ({ children, ...props }) => {
-  return (
-    <Flex
-      as="nav"
-      align="center"
-      justify="space-between"
-      wrap="wrap"
-      w="100%"
-      mb={8}
-      p={8}
-      bg={["primary.500", "primary.500", "transparent", "transparent"]}
-      color={["black", "black", "primary.700", "primary.700"]}
-      {...props}
-    >
-      {children}
-    </Flex>
-  );
+  return <Box>{children}</Box>;
 };
 
 export default NavBar;
