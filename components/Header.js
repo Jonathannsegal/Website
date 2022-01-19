@@ -1,7 +1,17 @@
 import React from "react";
-import { Link, Box, Flex, Text, Button, Stack } from "@chakra-ui/react";
+import { Link, Box, Flex, Text, Button, Stack, Avatar } from "@chakra-ui/react";
 import { CUIAutoComplete } from "chakra-ui-autocomplete";
 import Logo from "./Logo";
+import Autocomplete from "react-autocomplete";
+
+// const customRender = (selected) => {
+//   return (
+//     <Flex flexDir="row" alignItems="center">
+//       <Avatar mr={2} size="sm" name={selected.label} />
+//       <Text>{selected.label}</Text>
+//     </Flex>
+//   );
+// };
 
 const NavBar = (props) => {
   const [isOpen, setIsOpen] = React.useState(false);
@@ -33,7 +43,7 @@ const NavBar = (props) => {
   const toggle = () => setIsOpen(!isOpen);
 
   return (
-    <NavBarContainer {...props}>
+    <NavBarContainer zIndex={100} position="relative" {...props}>
       <Logo
         align="center"
         w="100px"
@@ -41,15 +51,37 @@ const NavBar = (props) => {
       />
       <MenuToggle toggle={toggle} isOpen={isOpen} />
       <MenuLinks isOpen={isOpen} />
-      <CUIAutoComplete
-        placeholder="Type a Country"
-        onCreateItem={handleCreateItem}
-        items={pickerItems}
-        selectedItems={selectedItems}
-        onSelectedItemsChange={(changes) =>
-          handleSelectedItemsChange(changes.selectedItems)
-        }
-      />
+      <Box zIndex={100} position="relative">
+        <CUIAutoComplete
+          listStyleProps={{ zIndex: 10, position: "relative" }}
+          placeholder="Type a Country"
+          items={pickerItems}
+          selectedItems={selectedItems}
+          onSelectedItemsChange={(changes) =>
+            handleSelectedItemsChange(changes.selectedItems)
+          }
+        />
+        <Autocomplete
+          value={"hi"}
+          inputProps={{ id: "states-autocomplete" }}
+          wrapperStyle={{ position: "relative", display: "inline-block" }}
+          items={{}}
+          getItemValue={(item) => item.name}
+          shouldItemRender={{}}
+          sortItems={{}}
+          onChange={(event, value) => {}}
+          onSelect={(value) => {}}
+          renderMenu={(children) => <div className="menu">{children}</div>}
+          renderItem={(item, isHighlighted) => (
+            <div
+              className={`item ${isHighlighted ? "item-highlighted" : ""}`}
+              key={item.abbr}
+            >
+              {item.name}
+            </div>
+          )}
+        />
+      </Box>
     </NavBarContainer>
   );
 };

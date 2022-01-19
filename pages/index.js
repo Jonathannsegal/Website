@@ -10,26 +10,20 @@ import { Box, Grid, Image, Heading } from "@chakra-ui/react";
 
 // import styles from "../styles/Shared.module.css";
 
-import Link from "next/link";
-
 const Index = ({ data }) => (
-  <div>
-    <ul>
+  <Box zIndex={100} position="relative">
+    <ul className="homeContainer">
       {data.allRecipe.map((recipe) => (
-        <Grid key={recipe.id}>
-          <Box bg="red" w="100%" h="550" p={0} mb={5} color="white">
-            <Heading position="relative" mb={4}>
-              {recipe.title}
-            </Heading>
-            <Image
-              position="absolute"
-              boxSize="10%"
-              objectFit="cover"
-              src={recipe?.mainImage?.asset.url}
-              alt={recipe?.title}
-            />
-          </Box>
-        </Grid>
+        <div key={recipe.id}>
+          <div
+            className="cardContainer"
+            style={{
+              backgroundImage: `radial-gradient(rgba(255, 255, 255, 0.30), rgba(0, 0, 0, 0.40)), url('${recipe?.mainImage?.asset.url}')`,
+            }}
+          >
+            <p className="cardText">{recipe.title}</p>
+          </div>
+        </div>
         //  <li key={recipe._id}>
         //    <Box bg="tomato" w="100%" p={4} pb={10} color="white">
         //    {recipe.title}
@@ -39,7 +33,7 @@ const Index = ({ data }) => (
         // </li>
       ))}
     </ul>
-  </div>
+  </Box>
 );
 
 export default Index;
