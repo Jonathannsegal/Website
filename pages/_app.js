@@ -1,15 +1,23 @@
 import { ChakraProvider, ColorModeProvider } from "@chakra-ui/react";
-import React from "react";
+import React, { useState } from 'react';
 import { DefaultSeo } from "next-seo";
 import Head from "next/head";
 import theme from "../theme";
 import Header from "../components/Header";
+import { Sidebar } from "../components/Sidebar";
+import { FaBars } from 'react-icons/fa';
 
 import SEO from "../next-seo.config";
 
 import "../styles/global.modules.css";
 
 export default function MyApp({ Component, pageProps }) {
+  const [toggled, setToggled] = useState(false);
+
+  const handleToggleSidebar = () => {
+    setToggled(!toggled);
+  };
+
   return (
     <>
       <Head>
@@ -49,8 +57,14 @@ export default function MyApp({ Component, pageProps }) {
               useSystemColorMode: true,
             }}
           >
+            <Sidebar 
+              handleToggleSidebar={handleToggleSidebar}
+              toggled={toggled}/>
             <div className={"gutter"}>
               <Header />
+              <div className="btn-toggle" onClick={() => handleToggleSidebar()}>
+                <FaBars />
+              </div>
               <DefaultSeo {...SEO} />
               <Component {...pageProps} />
             </div>
